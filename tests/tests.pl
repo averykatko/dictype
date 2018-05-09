@@ -1,5 +1,6 @@
 :- begin_tests(dictype).
 :- use_module(prolog/dictype).
+:- use_module(library(mavis)).
 
 :- dictype point{x:integer, y:integer}.
 
@@ -11,6 +12,20 @@ test(point_with_floats, error(type_error(integer, 0.5))) :-
 
 test(point_with_z, error(type_error(point, point{x: 1, y: 2, z: 3}))) :-
 	must_be(point, point{x: 1, y: 2, z: 3}).
+
+test(point_x_var) :-
+	the(point, point{x:_X, y:5}).
+
+test(point_x_var_fail, error(type_error(integer, foo))) :-
+	the(point, point{x:X, y:5}),
+	X = foo.
+
+test(point_var) :-
+	the(point, _Point).
+
+test(point_var_fail, error(type_error(point, foo{bar: baz}))) :-
+	the(point, Point),
+	Point = foo{bar: baz}.
 
 :- dictype box{tl: point, br: point}.
 
