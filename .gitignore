@@ -1,0 +1,8 @@
+.DS_Store
+.Trashes
+doc
+*.tgz
+*.tar
+*.gz
+*.zip
+test_results.txt
